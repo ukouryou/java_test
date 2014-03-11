@@ -1,0 +1,11 @@
+// See README.txt for information and build instructions.
+
+package user;
+
+option java_package = "com.tianji.search.vo";
+option java_outer_classname = "UserProtos";
+
+message User {
+  required string name = 1;
+  optional int32 page = 2;
+}

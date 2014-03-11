@@ -1,5 +1,16 @@
 *.class
-
+.project
+.settings
+.classpath
+target
+META-INF
+.bak
+logs
+app-ehcache
+.fuse_hidden*
+*~
+*.class
+bin
 # Package Files #
 *.jar
 *.war
