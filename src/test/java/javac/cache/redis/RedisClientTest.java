@@ -3,14 +3,7 @@
  */
 package javac.cache.redis;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-import java.util.Set;
-
-import javac.cache.redis.RedisClient.SerializeUtil;
-
-import org.junit.Test;
 
 /**
  * Feb 14, 2014

@@ -21,6 +21,8 @@ public class Grammer {
         char c = 'A';
         System.out.println(a);
 
+        String s = "  @@ ";
+        System.out.println("[" + s.trim() + "]");
 
     }
 
