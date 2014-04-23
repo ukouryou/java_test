@@ -1,23 +1,19 @@
 /**
  *
  */
-package a.b.c.d;
-
-import a.b.c.Test;
+package modifiers;
 
 /**
- * Feb 25, 2014
+ * Mar 25, 2014
  * @author andy
  */
-public class TestB{
-    private String name;
-    private String desc;
-    public TestB(){
-       Test test=new Test();
-       name=test.name;
-       desc=test.desc;
+class Test{
+    private static int i=0;
+    public int getNext(){
+       return i++;
     }
-
+}
+public class TestB{
     public static void main(String[] args){
         Test test=new Test();
         System.out.println(test.getNext());
