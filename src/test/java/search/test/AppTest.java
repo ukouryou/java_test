@@ -1,10 +1,11 @@
 package search.test;
 
-import org.apache.commons.lang.StringUtils;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Unit test for simple App.

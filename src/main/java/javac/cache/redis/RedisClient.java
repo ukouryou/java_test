@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 
 import redis.clients.jedis.Jedis;
 
-import com.tianji.network4.helper.ByteHelper;
 
 /**
  * Feb 14, 2014
@@ -34,7 +32,7 @@ public class RedisClient {
 
     public void getNetwork(Integer userid) {
 
-        Set<Integer> friendsSet = null;
+        /*Set<Integer> friendsSet = null;
         long start = System.currentTimeMillis();
         byte[] cachedBytes = jedis.get(userid.toString().getBytes());
         if (null != cachedBytes) {
@@ -66,7 +64,7 @@ public class RedisClient {
             System.out.println("find user from cache cost " + (System.currentTimeMillis() - end));
         } else {
             System.out.println("did not get the user from cache");
-        }
+        }*/
     }
 
     public void getList(List<Integer> list) {

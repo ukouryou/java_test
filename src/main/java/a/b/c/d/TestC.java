@@ -13,7 +13,7 @@ public class TestC extends Test{
     private String cname;
     private String cdesc;
     public TestC(){
-       cname=name;
+      // cname=name;
        cdesc=desc;
     }
 }

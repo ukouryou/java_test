@@ -14,7 +14,6 @@ import java.net.URL;
 import org.junit.Test;
 
 import com.example.tutorial.AddressBookProtos.Person;
-import com.tianji.rest.springframework.client.RestTemplateHelper;
 import com.tianji.search.vo.UserProtos.User;
 
 /**
@@ -63,7 +62,7 @@ public class ProtosTest {
 
     @Test
     public void testRetrieveUsser() throws Exception{
-        User user = RestTemplateHelper.getRestTemplate().getForObject(url, User.class);
+       // User user = RestTemplateHelper.getRestTemplate().getForObject(url, User.class);
 
 //        URL target = new URL(url);
 //        HttpURLConnection conn = (HttpURLConnection) target.openConnection();
@@ -80,7 +79,7 @@ public class ProtosTest {
 //        InputStream in = success ? conn.getInputStream() : conn.getErrorStream();
 //        User user = User.parseFrom(in);
 //        in.close();
-        System.out.println(user.toString());
+        //System.out.println(user.toString());
 
     }
 
@@ -117,12 +116,12 @@ public class ProtosTest {
     @Test
     public void testUpdate() {
         User user = User.newBuilder().setName("alex").setPage(10).build();
-        RestTemplateHelper.getRestTemplate().postForEntity(url2, user, null);
+       // RestTemplateHelper.getRestTemplate().postForEntity(url2, user, null);
     }
 
     @Test
     public void testGet() {
-        RestTemplateHelper.getRestTemplate().getForObject(url, User.class);
+       // RestTemplateHelper.getRestTemplate().getForObject(url, User.class);
     }
 
 }

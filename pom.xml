@@ -21,6 +21,16 @@
       <version>4.7</version>
       <scope>test</scope>
     </dependency>
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-collections4</artifactId>
+	    <version>4.0</version>
+	</dependency>
 
     <dependency>
       <groupId>jakarta-regexp</groupId>
@@ -84,28 +94,12 @@
     <artifactId>spymemcached</artifactId>
     <version>2.10.5</version>
 </dependency>
-    <dependency>
-      <groupId>tianji</groupId>
-      <artifactId>network4-api</artifactId>
-      <version>1.18.8</version>
-      <scope>provided</scope>
-    </dependency>
 <dependency>
     <groupId>redis.clients</groupId>
     <artifactId>jedis</artifactId>
     <version>2.4.0</version>
 </dependency>
-    <dependency>
-      <groupId>tianji</groupId>
-      <artifactId>network4-rest-agent</artifactId>
-      <version>1.18.8</version>
-      <scope>provided</scope>
-    </dependency>
-  <dependency>
-        <groupId>com.tianji</groupId>
-        <artifactId>tianji-rest-java</artifactId>
-        <version>1.2-SNAPSHOT</version>
-      </dependency>
+
       <dependency>
     <groupId>net.sf.ehcache</groupId>
     <artifactId>ehcache</artifactId>

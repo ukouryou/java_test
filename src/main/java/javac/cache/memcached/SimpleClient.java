@@ -8,18 +8,16 @@ import java.net.InetSocketAddress;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
+import net.spy.memcached.AddrUtil;
+import net.spy.memcached.BinaryConnectionFactory;
+import net.spy.memcached.MemcachedClient;
+
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import com.tianji.network4.helper.ByteHelper;
-
-import net.spy.memcached.AddrUtil;
-import net.spy.memcached.BinaryConnectionFactory;
-import net.spy.memcached.MemcachedClient;
 
 /**
  * Feb 14, 2014
@@ -70,7 +68,7 @@ public class SimpleClient {
     }
 
     private Set<Integer> getFriendsAtDegree(Integer userId, int distance) {
-        HttpHeaders headers = new HttpHeaders();
+       /* HttpHeaders headers = new HttpHeaders();
         headers.add("Accept-Encoding", "bin");
 
         String url = String.format("%s%s/friends/@at/%s/bytearray",
@@ -87,7 +85,7 @@ public class SimpleClient {
         } catch (Exception e) {
             System.out.println("Retrieve friends of user(" + userId
                     + ") at degree(" + distance + ") exception");
-        }
+        }*/
         return new HashSet<Integer>();
     }
 

@@ -5,12 +5,6 @@ package com.example.tutorial;
 
 import org.junit.Test;
 
-import com.tianji.rest.message.Search.FacetResponse;
-import com.tianji.rest.message.Search.KVPair;
-import com.tianji.rest.message.Search.PSearchResponse;
-import com.tianji.rest.message.Search.ResponseUserVO;
-import com.tianji.rest.springframework.client.RestTemplateHelper;
-
 /**
  * @author andy
  *
@@ -22,7 +16,7 @@ public class SearchTest {
 
     @Test
     public void testPSearch() {
-        final String psearchURL = baseURL + "psearch?keyword=中国&rows=10&userScope=ALL";
+       /* final String psearchURL = baseURL + "psearch?keyword=中国&rows=10&userScope=ALL";
         PSearchResponse response = RestTemplateHelper.getRestTemplate().getForObject(psearchURL, PSearchResponse.class);
         System.out.println("-------------print psearch resposne ------------------");
         System.out.println("result Numfound:" + response.getNumFound());
@@ -42,7 +36,7 @@ public class SearchTest {
                 System.out.println(pair.getValue());
             }
             System.out.println("****************************************");
-        }
+        }*/
 
     }
 

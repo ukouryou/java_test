@@ -5,14 +5,11 @@ package javac.cache.ehcache;
 
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import com.tianji.network4.helper.ByteHelper;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -29,7 +26,7 @@ public class EHCacheClient {
     private RestTemplate restTemplate = new RestTemplate();
 
     public void testCache(){
-        Cache cache = new Cache("test", 10000, false, false, 10000, 20000);
+       /* Cache cache = new Cache("test", 10000, false, false, 10000, 20000);
         cacheManager.addCache(cache);
         byte[] bytes = getFriendsAtDegree(31477123, 2);
         Set<Integer> friendsSet = ByteHelper.toIntegerSet(bytes);
@@ -65,7 +62,7 @@ public class EHCacheClient {
             System.out.println("find user from cache cost3 " + (System.currentTimeMillis() - start3));
         } else {
             System.out.println("empty size");
-        }
+        }*/
 
     }
 
