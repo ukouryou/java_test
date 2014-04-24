@@ -35,8 +35,12 @@ public class Handler implements Runnable {
     public void run() {
         try {
             if (state == READING) {
+                System.out.println("state reading");
+                System.out.println("run() selectionKey.interestOps(): "+ selectionKey.interestOps());
                 read();
             } else if (state == SENDING) {
+                System.out.println("state writing");
+                System.out.println("run().write selectionKey.interestOps(): "+ selectionKey.interestOps());
                 send();
             }
         } catch (IOException ex) {
@@ -45,13 +49,18 @@ public class Handler implements Runnable {
     }
 
     void read() throws IOException {
+        //System.out.println("read() selectionKey.interestOps(): "+ selectionKey.interestOps());
         int readCount = socketChannel.read(input);
+        System.out.println("reading input");
+        System.out.println("reading count" + readCount);
         if (readCount > 0) {
             readProcess(readCount);
         }
         state = SENDING;
         // Interested in writing
         selectionKey.interestOps(SelectionKey.OP_WRITE);
+        //System.out.println("read()2 ..");
+        //System.out.println("read() selectionKey.interestOps(): "+ selectionKey.interestOps());
     }
 
     /**
@@ -77,5 +86,6 @@ public class Handler implements Runnable {
         socketChannel.write(output);
         selectionKey.interestOps(SelectionKey.OP_READ);
         state = READING;
+        System.out.println("send() selectionKey.interestOps(): "+ selectionKey.interestOps());
     }
 }
