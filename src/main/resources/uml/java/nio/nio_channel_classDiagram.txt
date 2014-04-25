@@ -1,0 +1,55 @@
+@startuml
+namespace java.nio.channels <<Frame>>{
+ interface Channel
+ interface ReadableByteChannel
+ interface WritableByteChannel
+ interface InterruptibleChannel
+ interface ByteChannel
+ interface ScatteringByteChannel
+ interface GatheringByteChannel
+ interface SeekableByteChannel
+ interface NetworkChannel
+ interface MulticastChannel
+ class SelectableChannel
+ class FileChannel
+ class SocketChannel
+ class ServerSocketChannel
+ class DatagramChannel
+ class Channels
+ Channel <|-- ReadableByteChannel
+ Channel <|-- WritableByteChannel
+ Channel <|-- InterruptibleChannel
+ ReadableByteChannel <|-- ByteChannel
+ WritableByteChannel <|-- ByteChannel
+ java.nio.channels.spi.AbstractInterruptibleChannel <|-- SelectableChannel
+ Channel <|.. SelectableChannel
+ ReadableByteChannel <|-- ScatteringByteChannel
+ WritableByteChannel <|-- GatheringByteChannel
+ java.nio.channels.spi.AbstractInterruptibleChannel <|-- FileChannel
+ GatheringByteChannel <|.. FileChannel
+ ScatteringByteChannel <|.. FileChannel
+ SeekableByteChannel <|.. FileChannel
+ ByteChannel <|-- SeekableByteChannel
+ java.nio.channels.spi.AbstractInterruptibleChannel <|--  SocketChannel
+ ByteChannel <|.. SocketChannel
+ ScatteringByteChannel <|.. SocketChannel
+ GatheringByteChannel <|.. SocketChannel
+ java.nio.channels.spi.AbstractSelectableChannel <|-- ServerSocketChannel
+ Channel <|-- NetworkChannel
+ NetworkChannel <|.. ServerSocketChannel
+ NetworkChannel <|-- MulticastChannel
+ java.nio.channels.spi.AbstractSelectableChannel <|-- DatagramChannel
+ ByteChannel <|.. DatagramChannel
+ ScatteringByteChannel <|.. DatagramChannel
+ GatheringByteChannel <|.. DatagramChannel
+ MulticastChannel <|.. DatagramChannel
+}
+namespace java.nio.channels.spi <<Frame>>{
+ class AbstractInterruptibleChannel
+ class AbstractSelectableChannel
+ java.nio.channels.Channel <|.. AbstractInterruptibleChannel
+ java.nio.channels.InterruptibleChannel <|.. AbstractInterruptibleChannel
+ java.nio.channels.SelectableChannel <|-- AbstractSelectableChannel
+}
+
+@enduml
