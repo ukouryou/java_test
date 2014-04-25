@@ -42,9 +42,11 @@ public class Dispatcher {
 
           public void run() {
             try {
+                int ready;
               while (true) { // Loop indefinitely
-                demultiplexer.select();
+                ready = demultiplexer.select();
                 System.out.println("start round");
+                System.out.println("ready : " + ready);
                 Set<SelectionKey> readyHandles =
                   demultiplexer.selectedKeys();
                 Iterator<SelectionKey> handleIterator =
@@ -54,12 +56,15 @@ public class Dispatcher {
                 while (handleIterator.hasNext()) {
                   SelectionKey handle = handleIterator.next();
 
+                  handleIterator.remove();
                   System.out.println("interestOPs:" +handle.interestOps());
+                  System.out.println("valid:" + handle.isValid());
                   if (handle.isAcceptable()) {
                     EventHandler handler =
                       registeredHandlers.get(SelectionKey.OP_ACCEPT);
                       handler.handleEvent(handle);
                       System.out.println("handle select!");
+
                    // Note : Here we don't remove this handle from
                    // selector since we want to keep listening to
                    // new client connections
@@ -70,14 +75,14 @@ public class Dispatcher {
                       registeredHandlers.get(SelectionKey.OP_READ);
                     handler.handleEvent(handle);
                     System.out.println("handle read!");
-                    handleIterator.remove();
+//                    handleIterator.remove();
                   }
 
                   if (handle.isWritable()) {
                     EventHandler handler =
                       registeredHandlers.get(SelectionKey.OP_WRITE);
                     handler.handleEvent(handle);
-                    handleIterator.remove();
+//                    handleIterator.remove();
                   }
                 }
 //                readyHandles.clear();

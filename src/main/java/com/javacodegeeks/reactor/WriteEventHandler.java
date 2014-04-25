@@ -18,8 +18,20 @@ public class WriteEventHandler implements EventHandler {
         SocketChannel socketChannel =
           (SocketChannel) handle.channel();
         ByteBuffer inputBuffer = (ByteBuffer) handle.attachment();
+        /*byte [] bytesArray = (byte[]) handle.attachment();
+        ByteBuffer inputBuffer = ByteBuffer.wrap(bytesArray);
+        System.out.println("array length " + bytesArray.length);
+        System.out.println(bytesArray[bytesArray.length -1]);
+        System.out.println("prepare to write " + new String(bytesArray).trim());*/
+        System.out.println(" position:" + inputBuffer.position());
+        System.out.println(" limit:" + inputBuffer.limit());
         socketChannel.write(inputBuffer);
-        socketChannel.close(); // Close connection
+        System.out.println(" position:" + inputBuffer.position());
+        System.out.println(" limit:" + inputBuffer.limit());
+//        inputBuffer.clear();
+//        socketChannel.register(handle.selector(), SelectionKey.OP_READ);
+        handle.interestOps(SelectionKey.OP_READ);
+//        socketChannel.close(); // Close connection
       }
 
     }

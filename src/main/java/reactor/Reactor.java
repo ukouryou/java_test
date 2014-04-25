@@ -104,8 +104,8 @@ public class Reactor implements Runnable {
                 }
                 System.out.println("new thread for handler ");
                 System.out.println(k.readyOps());
-//            r.run();
-                new Thread(r).start();
+            r.run();
+//                new Thread(r).start();
             }
         }
 //                new Thread(r).start();
