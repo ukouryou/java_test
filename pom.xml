@@ -12,6 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <poi.version>3.10-FINAL</poi.version>
   </properties>
 
   <dependencies>
@@ -21,16 +22,16 @@
       <version>4.7</version>
       <scope>test</scope>
     </dependency>
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-lang3</artifactId>
-	    <version>3.3</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-collections4</artifactId>
-	    <version>4.0</version>
-	</dependency>
+  <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.3</version>
+  </dependency>
+  <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.0</version>
+  </dependency>
 
     <dependency>
       <groupId>jakarta-regexp</groupId>
@@ -110,6 +111,28 @@
     <artifactId>elasticsearch</artifactId>
     <version>1.0.0</version>
 </dependency>
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itext-pdfa</artifactId>
+    <version>5.5.0</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.pdfbox</groupId>
+    <artifactId>pdfbox</artifactId>
+    <version>1.8.4</version>
+</dependency>
+
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>${poi.version}</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-scratchpad</artifactId>
+    <version>${poi.version}</version>
+</dependency>
+
   </dependencies>
 
 

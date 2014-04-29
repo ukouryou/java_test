@@ -3,8 +3,6 @@
  */
 package nio;
 
-import static org.junit.Assert.fail;
-
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
@@ -334,9 +333,235 @@ public class FileDirTest {
 
     }
 
+    /**
+     * Creating Temporary Directories and Files
+     */
     @Test
-    public void test() {
-        fail("Not yet implemented");
+    public void testCTDF(){
+
+        /**
+         * Creating a Temporary Directory
+         */
+        //createTempDirectory()
+        String tmp_dir_prefix = "nio_";
+        try {
+            // passing null prefix
+            Path tmp_1 = Files.createTempDirectory(null);
+            System.out.println("TMP: " + tmp_1.toString());
+            // set a prefix
+            Path tmp_2 = Files.createTempDirectory(tmp_dir_prefix);
+            System.out.println("TMP: " + tmp_2.toString());
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        //output
+        //TMP: /tmp/8662825716781946819
+        //TMP: /tmp/nio_2355283620031125088
+        String default_tmp = System.getProperty("java.io.tmpdir");
+        System.out.println(default_tmp);
+        //
+        Path basedir = FileSystems.getDefault().getPath("/home/andy/tmp/");
+        tmp_dir_prefix = "rafa_";
+        try {
+            // create a tmp directory in the base dir
+            Path tmp = Files.createTempDirectory(basedir, tmp_dir_prefix);
+            System.out.println("TMP: " + tmp.toString());
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        //shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                System.out.println("Shutdown-hook activated ...");
+                // ... here, cleanup/save resources
+                System.out.println("Shutdown-hook successfully executed ...");
+            }
+        });
+        //combine list files and shutdown hook
+        try {
+            // create a tmp directory in the base dir
+            final Path tmp_dir = Files.createTempDirectory(basedir,
+                    tmp_dir_prefix);
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    System.out.println("Deleting the temporary folder ...");
+                    try (DirectoryStream<Path> ds = Files.newDirectoryStream(tmp_dir)) {
+                        for (Path file : ds) {
+                            Files.delete(file);
+                        }
+                        System.out.println("delete tmp_dir" + tmp_dir.toString());
+                        Files.delete(tmp_dir);
+                    } catch (IOException e) {
+                        System.err.println(e);
+                    }
+                    System.out.println("Shutdown-hook completed...");
+                }
+            });
+            // simulate some I/O operations over the temporary file by sleeping
+            // 10 seconds
+            // when the time expires, the temporary file is deleted
+            Thread.sleep(10000);
+            // operations done
+        } catch (IOException | InterruptedException e) {
+            System.err.println(e);
+        }
+
+        /**
+         * Deleting a Temporary Directory with the deleteOnExit() Method
+         */
+        try {
+            // create a tmp directory in the base dir
+            Path tmp_dir = Files.createTempDirectory(basedir, tmp_dir_prefix);
+            File asFile = tmp_dir.toFile();
+            asFile.deleteOnExit();
+            // simulate some I/O operations over the temporary file by sleeping
+            // 10 seconds
+            // when the time expires, the temporary file is deleted
+            // EACH CREATED TEMPORARY ENTRY SHOULD BE REGISTERED FOR DELETE ON
+            // EXIT
+            Thread.sleep(10000);
+            // operations done
+        } catch (IOException | InterruptedException e) {
+            System.err.println(e);
+        }
+
+        /**
+         * Creating Temporary Files
+         */
+        //createTempFile()
+        //code snippet
+        String tmp_file_prefix = "rafa_";
+        String tmp_file_sufix=".txt";
+        try {
+            // passing null prefix/suffix
+            Path tmp_1 = Files.createTempFile(null, null);
+            System.out.println("TMP: " + tmp_1.toString());
+            // set a prefix and a suffix
+            Path tmp_2 = Files.createTempFile(tmp_file_prefix, tmp_file_sufix);
+            System.out.println("TMP: " + tmp_2.toString());
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        //specify the default directory in which a temporary file is created
+        try {
+            Path tmp_3 = Files.createTempFile(basedir, tmp_file_prefix, tmp_file_sufix);
+            System.out.println("TMP: " + tmp_3.toString());
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        //Deleting a Temporary File with Shutdown-Hook
+        try {
+            final Path tmp_file = Files.createTempFile(basedir,tmp_file_prefix, tmp_file_sufix);
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    System.out.println("Deleting the temporary file ...");
+                    try {
+                        Files.delete(tmp_file);
+                    } catch (IOException e) {
+                        System.err.println(e);
+                    }
+                    System.out.println("Shutdown hook completed...");
+                }
+            });
+            // simulate some I/O operations over the temporary file by sleeping
+            // 10 seconds
+            // when the time expires, the temporary file is deleted
+            Thread.sleep(10000);
+            // operations done
+        } catch (IOException | InterruptedException e) {
+            System.err.println(e);
+        }
+        //Deleting a Temporary File with DELETE_ON_CLOSE
+        Path tmp_file = null;
+        try {
+            tmp_file = Files.createTempFile(basedir, tmp_file_prefix,
+                    tmp_file_sufix);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        try (OutputStream outputStream = Files.newOutputStream(tmp_file,
+                StandardOpenOption.DELETE_ON_CLOSE);
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(outputStream))) {
+            // simulate some I/O operations over the temporary file by sleeping
+            // 10 seconds
+            // when the time expires, the temporary file is deleted
+            Thread.sleep(10000);
+            // operations done
+        } catch (IOException | InterruptedException e) {
+            System.err.println(e);
+        }
+        //simulate
+        /*tmp_file = FileSystems.getDefault().getPath("/home/andy/tmp/rafa_5898056209708961541.txt",
+                tmp_file_prefix + "temporary" + tmp_file_sufix);*/
+        tmp_file = FileSystems.getDefault().getPath("/home/andy/tmp/rafa_5898056209708961541.txt");
+        try (OutputStream outputStream = Files.newOutputStream(tmp_file,
+                StandardOpenOption.CREATE, StandardOpenOption.DELETE_ON_CLOSE);
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(outputStream))) {
+            // simulate some I/O operations over the temporary file by sleeping
+            // 10 seconds
+            // when the time expires, the temporary file is deleted
+            Thread.sleep(10000);
+            // operations done
+        } catch (IOException | InterruptedException e) {
+            System.err.println(e);
+        }
+
+        /**
+         * Deleting, Copying, and Moving Directories and Files
+         */
+        //Deleting Files and Directories
+        //Files.delete() and Files.deleteIfExits().
+        //Copying Files and Directories
+        //Files.copy()
+        //Copying Between Two Paths
+        Path copy_from = Paths.get("C:/rafaelnadal/grandslam/AustralianOpen", "draw_template.txt");
+        Path copy_to= Paths.get("C:/rafaelnadal/grandslam/USOpen",copy_from.getFileName().toString());
+        try {
+            Files.copy(copy_from, copy_to, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES,
+                    LinkOption.NOFOLLOW_LINKS);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        //Copying from an Input Stream to a File
+        //Copying from a File to an Output Stream
+        //Moving Files and Directories
+        //Files.move()
+        Path movefrom = FileSystems.getDefault().getPath("C:/rafaelnadal/rafa_2.jpg");
+        Path moveto = FileSystems.getDefault().getPath("C:/rafaelnadal/photos/rafa_2.jpg");
+        try {
+            Files.move(movefrom, moveto, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        movefrom = FileSystems.getDefault().getPath("C:/rafaelnadal/rafa_2.jpg");
+        Path moveto_dir = FileSystems.getDefault().getPath("C:/rafaelnadal/photos");
+        try {
+            Files.move(movefrom, moveto_dir.resolve(movefrom.getFileName()),
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+        //Rename a File
+        movefrom = FileSystems.getDefault().getPath("C:/rafaelnadal/photos/rafa_2.jpg");
+        try {
+            Files.move(movefrom, movefrom.resolveSibling("rafa_2_renamed.jpg"),
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+
+
+    }
+
+
+    @Test
+    public void test() throws IOException {
+
     }
 
 
