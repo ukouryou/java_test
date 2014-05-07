@@ -12,35 +12,29 @@ import java.nio.channels.CompletionHandler;
  * Apr 11, 2014
  * @author andy
  */
-public class AcceptCompletionHandler
-implements
-  CompletionHandler<AsynchronousSocketChannel, SessionState> {
+public class AcceptCompletionHandler implements CompletionHandler<AsynchronousSocketChannel, SessionState> {
 
-private AsynchronousServerSocketChannel listener;
+    private AsynchronousServerSocketChannel listener;
 
-public AcceptCompletionHandler(
-  AsynchronousServerSocketChannel listener) {
-  this.listener = listener;
-}
+    public AcceptCompletionHandler(AsynchronousServerSocketChannel listener) {
+        this.listener = listener;
+    }
 
-@Override
-public void completed(AsynchronousSocketChannel socketChannel,
-  SessionState sessionState) {
- // accept the next connection
- SessionState newSessionState = new SessionState();
- listener.accept(newSessionState, this);
+    @Override
+    public void completed(AsynchronousSocketChannel socketChannel, SessionState sessionState) {
+        // accept the next connection
+        SessionState newSessionState = new SessionState();
+        listener.accept(newSessionState, this);
 
- // handle this connection
- ByteBuffer inputBuffer = ByteBuffer.allocate(2048);
- ReadCompletionHandler readCompletionHandler =
-   new ReadCompletionHandler(socketChannel, inputBuffer);
- socketChannel.read(
-   inputBuffer, sessionState, readCompletionHandler);
-}
+        // handle this connection
+        ByteBuffer inputBuffer = ByteBuffer.allocate(2048);
+        ReadCompletionHandler readCompletionHandler = new ReadCompletionHandler(socketChannel, inputBuffer);
+        socketChannel.read(inputBuffer, sessionState, readCompletionHandler);
+    }
 
-@Override
-public void failed(Throwable exc, SessionState sessionState) {
- // Handle connection failure...
-}
+    @Override
+    public void failed(Throwable exc, SessionState sessionState) {
+        // Handle connection failure...
+    }
 
 }
