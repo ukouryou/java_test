@@ -5,6 +5,8 @@ package javac.cache.redis;
 
 import java.util.ArrayList;
 
+import org.junit.Test;
+
 /**
  * Feb 14, 2014
  * @author andy
@@ -16,8 +18,8 @@ public class RedisClientTest {
      */
     @Test
     public void testGetNetwork() {
-        RedisClient client = new RedisClient();
-        client.getNetwork(9041480);
+//        RedisClient client = new RedisClient();
+//        client.getNetwork(9041480);
     }
 
     @Test
@@ -41,10 +43,10 @@ public class RedisClientTest {
                 System.out.println("id:" + integer);
             }
 */
-        RedisClient client = new RedisClient();
-        client.getList(list);
-
-        client.getString(list);
+//        RedisClient client = new RedisClient();
+//        client.getList(list);
+//
+//        client.getString(list);
 
     }
 

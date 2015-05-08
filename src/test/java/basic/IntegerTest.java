@@ -3,6 +3,7 @@
  */
 package basic;
 
+import java.io.IOException;
 import java.math.BigInteger;
 
 import org.junit.Test;
@@ -50,7 +51,7 @@ public class IntegerTest {
 
     @Test
     public void testVint() {
-        writeVInt(128);
+        writeVInt(-1);
     }
 
 
@@ -62,5 +63,7 @@ public class IntegerTest {
              }
              System.out.println(((byte)i));
            }
+
+
 
 }

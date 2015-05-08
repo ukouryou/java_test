@@ -40,8 +40,6 @@ public class EditDistance {
     }
 
     public static int substitute(int source, int target) {
-        if (source != target) {
-        }
         return source == target ? 0 : 2;
     }
 

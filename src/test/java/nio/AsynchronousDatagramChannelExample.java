@@ -6,10 +6,8 @@ import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.SocketAddress;
 import java.net.StandardProtocolFamily;
-import java.net.StandardSocketOption;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousChannelGroup;
-import java.nio.channels.AsynchronousDatagramChannel;
 import java.nio.channels.CompletionHandler;
 import java.nio.channels.MembershipKey;
 import java.util.concurrent.ExecutionException;
@@ -22,7 +20,7 @@ public class AsynchronousDatagramChannelExample {
         new AsynchronousDatagramChannelExample();
     }
 
-    public AsynchronousDatagramChannelExample() throws IOException, InterruptedException, ExecutionException {
+    /*public AsynchronousDatagramChannelExample() throws IOException, InterruptedException, ExecutionException {
         // find a NetworkInterface that supports multicasting
         NetworkInterface networkInterface = NetworkInterface.getByName("eth0");
 
@@ -88,5 +86,5 @@ public class AsynchronousDatagramChannelExample {
         tenThreadGroup.awaitTermination(1, TimeUnit.MINUTES);
         key.drop();
         server.close();
-    }
+    }*/
 }

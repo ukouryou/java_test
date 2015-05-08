@@ -31,5 +31,10 @@ public class ForTest {
         System.out.println(stringBuilder.toString());
     }
 
+    @Test
+    public void testString() {
+        System.out.println(2^4);
+    }
+
 
 }

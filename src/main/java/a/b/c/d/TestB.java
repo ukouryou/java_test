@@ -14,8 +14,8 @@ public class TestB{
     private String desc;
     public TestB(){
        Test test=new Test();
-       name=test.name;
-       desc=test.desc;
+//       name=test.name;
+//       desc=test.desc;
     }
 
     public static void main(String[] args){
